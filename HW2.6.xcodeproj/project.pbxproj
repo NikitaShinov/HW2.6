@@ -13,6 +13,7 @@
 		B673DDA72735AD4C00DDF64A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B673DDA52735AD4C00DDF64A /* Main.storyboard */; };
 		B673DDA92735AD5200DDF64A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B673DDA82735AD5200DDF64A /* Assets.xcassets */; };
 		B673DDAC2735AD5200DDF64A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B673DDAA2735AD5200DDF64A /* LaunchScreen.storyboard */; };
+		B673DDB42736DD2F00DDF64A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673DDB32736DD2F00DDF64A /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B673DDA82735AD5200DDF64A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B673DDAB2735AD5200DDF64A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B673DDAD2735AD5200DDF64A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B673DDB32736DD2F00DDF64A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				B673DDA12735AD4C00DDF64A /* SceneDelegate.swift */,
 				B673DDA32735AD4C00DDF64A /* ViewController.swift */,
 				B673DDA52735AD4C00DDF64A /* Main.storyboard */,
+				B673DDB32736DD2F00DDF64A /* SettingsViewController.swift */,
 				B673DDA82735AD5200DDF64A /* Assets.xcassets */,
 				B673DDAA2735AD5200DDF64A /* LaunchScreen.storyboard */,
 				B673DDAD2735AD5200DDF64A /* Info.plist */,
@@ -141,6 +144,7 @@
 				B673DDA42735AD4C00DDF64A /* ViewController.swift in Sources */,
 				B673DDA02735AD4C00DDF64A /* AppDelegate.swift in Sources */,
 				B673DDA22735AD4C00DDF64A /* SceneDelegate.swift in Sources */,
+				B673DDB42736DD2F00DDF64A /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
