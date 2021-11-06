@@ -35,6 +35,8 @@ class SettingsViewController: UIViewController {
         blueSlider.value = 0.5
         
         
+//        redTextField.addTarget(self, action: #selector(chgTextFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+        
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
@@ -54,6 +56,7 @@ class SettingsViewController: UIViewController {
         settingsViewResult()
         }
     
+    
     @IBAction func doneButtonPressed() {
         dismiss(animated: true)
     }
@@ -63,9 +66,33 @@ class SettingsViewController: UIViewController {
         settingsView.backgroundColor = colourView
     }
     
+    
+//    func setValueForSlider (textField: UITextField, slider: UISlider) {
+//        guard let text = textField.text else { return }
+//        if let textValue = Float(text) {
+//            slider.value = textValue
+//        }
+//        settingsViewResult()
+//    }
+//    @objc func chgTextFieldDidChange(textField: UITextField) {
+//        if let chgStringValue = textField.text {
+//            if let chgIntValue = Int(chgStringValue) {
+//                redSlider.setValue(Float(Double(chgIntValue)), animated: true)
+//            }
+//        }
+//    }
+    
 }
+
+extension ViewController: UITextFieldDelegate {
     
-    
+    func setValueForSlider (textField: UITextField, slider: UISlider) {
+        guard let text = textField.text else { return }
+        if let textValue = Float(text) {
+            slider.value = textValue
+        }
+    }
+}
 
     /*
     // MARK: - Navigation
