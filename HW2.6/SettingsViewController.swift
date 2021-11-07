@@ -23,18 +23,26 @@ class SettingsViewController: UIViewController {
     @IBOutlet var greenTextField: UITextField!
     @IBOutlet var blueTextField: UITextField!
     
-    
+    var mainScreenColour: UIColor!
+    var delegate: ViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         settingsView.layer.cornerRadius = 15
+        settingsView.backgroundColor = mainScreenColour
         
-        redSlider.value = 0.5
-        greenSlider.value = 0.5
-        blueSlider.value = 0.5
+//        redSlider.value = 0.5
+//        greenSlider.value = 0.5
+//        blueSlider.value = 0.5
         
+        redSlider.thumbTintColor = .red
+        greenSlider.thumbTintColor = .green
+        blueSlider.thumbTintColor = .blue
         
+        setValuesForLabels()
+        setValuesForTextFields()
+        setValueForSliders()
         
     }
     
@@ -62,19 +70,25 @@ class SettingsViewController: UIViewController {
             guard let text = sender.text else { return }
             if let textValue = Float(text) {
                 redSlider.value = textValue
-                redLabel.text = text
+                redLabel.text = String(format: "%.2f",textValue)
+            } else {
+                showAlert()
             }
         case 1:
             guard let text = sender.text else { return }
             if let textValue = Float(text) {
                 greenSlider.value = textValue
-                greenLabel.text = text
+                greenLabel.text = String(format: "%.2f",textValue)
+            } else {
+                showAlert()
             }
         case 2:
             guard let text = sender.text else { return }
             if let textValue = Float(text) {
                 blueSlider.value = textValue
-                blueLabel.text = text
+                blueLabel.text = String(format: "%.2f",textValue)
+            } else {
+                showAlert()
             }
         default:
             break
@@ -86,46 +100,50 @@ class SettingsViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    func setValueForSliders () {
+        let colourOfMainView = CIColor(color: mainScreenColour)
+        
+        redSlider.value = Float(colourOfMainView.red)
+        greenSlider.value = Float(colourOfMainView.green)
+        blueSlider.value = Float(colourOfMainView.blue)
+    }
+    
+    func setValuesForLabels () {
+        redLabel.text = String(redSlider.value)
+        greenLabel.text = String(greenSlider.value)
+        blueLabel.text = String(blueSlider.value)
+    }
+    
+    func setValuesForTextFields () {
+        redTextField.text = redLabel.text
+        greenTextField.text = greenLabel.text
+        blueTextField.text = blueLabel.text
+    }
+    
+    
     func settingsViewResult() {
         let colourView = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
         settingsView.backgroundColor = colourView
     }
     
-    
-//    func setValueForSlider (textField: UITextField, slider: UISlider) {
-//        guard let text = textField.text else { return }
-//        if let textValue = Float(text) {
-//            slider.value = textValue
-//        }
-//        settingsViewResult()
-//    }
-//    @objc func chgTextFieldDidChange(textField: UITextField) {
-//        if let chgStringValue = textField.text {
-//            if let chgIntValue = Int(chgStringValue) {
-//                redSlider.setValue(Float(Double(chgIntValue)), animated: true)
-//            }
-//        }
-//    }
-    
+    func showAlert () {
+        let alert = UIAlertController(title: "Error", message: "Wrong input", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+        
+    }
+
 }
 
-//extension ViewController: UITextFieldDelegate {
-//
-//    func setValueForSlider (textField: UITextField, slider: UISlider) {
-//        guard let text = textField.text else { return }
-//        if let textValue = Float(text) {
-//            slider.value = textValue
-//        }
-//    }
-//}
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension SettingsViewController: UITextViewDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
-    */
-
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}

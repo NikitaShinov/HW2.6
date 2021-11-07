@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate {
+    func colourSetup (colour: UIColor)
+}
+
+
 class ViewController: UIViewController {
 
     @IBOutlet var mainView: UIView!
@@ -15,13 +20,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func settingsPressed() {
-        performSegue(withIdentifier: "settingsSegue", sender: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            if segue.identifier == "settingsSegue" {
+                if let settingsVC = segue.destination as? SettingsViewController {
+                    settingsVC.mainScreenColour = mainView.backgroundColor
+                    settingsVC.delegate = self
+            }
+        }
+    
     }
-    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let settingsVC = segue.destination as? SettingsViewController else { return }
-}
+//        if segue.identifier == "settingsSegue" {
+//            if let settingsVC = segue.destination as? SettingsViewController {
+//                settingsVC.mainScreenColour = mainView.backgroundColor
+//                settingsVC.delegate = self
+//        }
+//    }
+//    }
     
-
+//    @IBAction func unwind(for segue: UIStoryboardSegue) {
+//        let settingsVC = segue.source as! SettingsViewController {
+//            settingsVC.delegate = self
+//            settingsVC.colourSetup()
+//        }
+//    }
+    
+// MARK: - SettingsViewControllerDelegate
+extension ViewController: SettingsViewControllerDelegate {
+    func colourSetup (colour: UIColor) {
+        mainView.backgroundColor = colour
+    }
+}
