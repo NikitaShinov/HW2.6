@@ -32,17 +32,11 @@ class SettingsViewController: UIViewController {
         settingsView.layer.cornerRadius = 15
         settingsView.backgroundColor = mainScreenColour
         
-//        redSlider.value = 0.5
-//        greenSlider.value = 0.5
-//        blueSlider.value = 0.5
-        
         redSlider.thumbTintColor = .red
         greenSlider.thumbTintColor = .green
         blueSlider.thumbTintColor = .blue
         
-        setValuesForLabels()
-        setValuesForTextFields()
-        setValueForSliders()
+        setNewValues()
         
     }
     
@@ -60,7 +54,7 @@ class SettingsViewController: UIViewController {
         default:
             break
         }
-        settingsViewResult()
+        updateColour()
         }
     
 
@@ -93,37 +87,34 @@ class SettingsViewController: UIViewController {
         default:
             break
         }
-        settingsViewResult()
+        updateColour()
     }
     
     @IBAction func doneButtonPressed() {
+        delegate?.updateColour(colour: settingsView.backgroundColor!)
         dismiss(animated: true)
     }
     
-    func setValueForSliders () {
+    func setNewValues () {
         let colourOfMainView = CIColor(color: mainScreenColour)
         
         redSlider.value = Float(colourOfMainView.red)
         greenSlider.value = Float(colourOfMainView.green)
         blueSlider.value = Float(colourOfMainView.blue)
+        
+        redLabel.text = String(format: "%.2f", redSlider.value)
+        greenLabel.text = String(format: "%.2f", greenSlider.value)
+        blueLabel.text = String(format: "%.2f",blueSlider.value)
+        
+        redTextField.text = String(format: "%.2f", redSlider.value)
+        greenTextField.text = String(format: "%.2f", greenSlider.value)
+        blueTextField.text = String(format: "%.2f", blueSlider.value)
     }
     
-    func setValuesForLabels () {
-        redLabel.text = String(redSlider.value)
-        greenLabel.text = String(greenSlider.value)
-        blueLabel.text = String(blueSlider.value)
-    }
-    
-    func setValuesForTextFields () {
-        redTextField.text = redLabel.text
-        greenTextField.text = greenLabel.text
-        blueTextField.text = blueLabel.text
-    }
-    
-    
-    func settingsViewResult() {
+    func updateColour() {
         let colourView = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
         settingsView.backgroundColor = colourView
+        delegate?.updateColour(colour: colourView)
     }
     
     func showAlert () {
@@ -131,9 +122,7 @@ class SettingsViewController: UIViewController {
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true)
-        
     }
-
 }
 
 extension SettingsViewController: UITextViewDelegate {
